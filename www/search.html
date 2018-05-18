@@ -1,49 +1,47 @@
-<!DOCTYPE HTML>
-<!--
-       Licensed to the Apache Software Foundation (ASF) under one
-       or more contributor license agreements.  See the NOTICE file
-       distributed with this work for additional information
-       regarding copyright ownership.  The ASF licenses this file
-       to you under the Apache License, Version 2.0 (the
-       "License"); you may not use this file except in compliance
-       with the License.  You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE-2.0
-
-       Unless required by applicable law or agreed to in writing,
-       software distributed under the License is distributed on an
-       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-       KIND, either express or implied.  See the License for the
-       specific language governing permissions and limitations
-       under the License.
--->
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>PhoneGap</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
-    <script type="text/javascript" src="components/loader.js"></script>
-    <link rel="stylesheet" type="text/css" href="components/loader.css">
-    <script type="text/javascript">
+<head>
+    <meta charset="utf-8">
+    <script async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCufX05xXAGT-5ri5naTg2D8mGkTBuBTwU&callback=initMap">
+    </script>
+    <script src="components/plugin-loader.js"></script>
+    <!-- script src="phonegap-demo/location.js"></script -->
+    <link rel="stylesheet" href="components/plugin-loader.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>現在値をGoogleMapにて表示</title>
+    <script>
         document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady(){
-            console.log("PhoneGap is ready.");
+        function onDeviceReady() {
+            console.log("PhoneGap is ready");
+            console.log(device.uuid);
+        }
+        function initMap() {
+            console.log("GMAP")
+            var lat = 35.621393;
+            var lng = 139.723364;
+            var shinagawa = {lat: lat, lng: lng};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: shinagawa
+            });
         }
     </script>
-    <link rel="stylesheet" href="phonegap-demo/master.css" type="text/css" media="screen" title="no title">
-    <script type="text/javascript" charset="utf-8" src="phonegap-demo/main.js"></script>
-  </head>
-  <body onload="init();" id="stage" class="theme">
-    <span id="uuid"> &nbsp;</span>
-
-    <h1>公園の確定</h1>
-    <h2>下記のボタンをおして現在位置を取得し、どの公園にいるのかを確定します。</h2>
-    
-    <a href="#" class="btn large" onclick="getLocation();">現在位置の取得</a>
-    <a href="#" class="btn large" onclick="show_pic();">写真撮影</a>
-    <div id="viewport" class="viewport" style="display: none;">
-      <img style="width:60px;height:60px" id="test_img" src="" />
-    </div>
-  </body>
+    <style>
+    html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #map{
+        height: 80%;
+        width: 80%;
+        margin: 10% auto; 
+    }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+</body>
 </html>

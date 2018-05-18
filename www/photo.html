@@ -12,17 +12,9 @@
         function onDeviceReady(){
             console.log("PhoneGap is ready.");
             $("#uuid").val(device.uuid);
-            getLocation();
+            
         }
-        function getLocation() {
-            var suc = function(p) {
-                console.log(p.coords.latitude + " " + p.coords.longitude);
-            };
-            var locFail = function() {
-                console.log("location failed")
-            };
-            navigator.geolocation.getCurrentPosition(suc, locFail);
-        };
+
         function next(){
             //要素の数
             var len = $("#command").children().length;
@@ -45,44 +37,41 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap-demo/location.js"></script>
         <script type="text/javascript" charset="utf-8" src="phonegap-demo/p.js"></script>
   </head>
-  <body style="width:100%;height:100%">
+  <body style="width:100%;height:100%" onload="location_loader();">
     <table style="height:100%;width:100%">
         <tr style="height: 30px">
-            <td style="pading: 3px">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <label class="control-label">　指令　</label>
-                    </div>
-                    <div class="col-xs-5">
-                        <select class="form-control" style="width: 80%" id="command">
-                            <option value="1" selected>公園の入口を撮影</option>
-                            <option value="2">公園の風景を撮影</option> 
-                            <option value="3">公園の遊具・施設を撮影</option>
-                            <option value="4">全ての看板を撮影</option>
-                        </select>
-                    </div>
-                    <div class="col-xs-3">
-                        <button id="next" type="button" class="btn" onclick="next();">次の指令</button>
-                    </div>
-                </div>
+            <td style="pading: 3px; width: 40px">
+                <label class="control-label">指令</label>
+            </td>
+            <td>
+                <select class="form-control" style="width: 80%" id="command">
+                    <option value="1" selected>公園の入口を撮影</option>
+                    <option value="2">公園の風景を撮影</option> 
+                    <option value="3">公園の遊具・施設を撮影</option>
+                    <option value="4">全ての看板を撮影</option>
+                </select>
             </td>
         </tr>
         <tr style="height: 30px">
-            <td>
+            <td colspan="3">
                 <button type="button" class="btn btn-primary" onclick="capturePhoto();">写真を取る</button>
             </td>
         </tr>
-        <tr style="background-color:gray">
-            <td>
+        <tr>
+            <td colspan="3">
                 <img style="display:none;width:100%;" id="smallImage" src="" />
-            </td>
+            </td>            
         </tr>
         <tr style="height:30px">
-            <td>
-                 <button type="button" class="btn btn-primary" onclick="sendPhoto()">写真を送信する</button>
-            </td>            
+            <td style="pading: 3px;" colspan="3">
+                <button type="button" class="btn btn-primary" onclick="sendPhoto()">送信する</button><br>
+                <span>指令の写真を全て撮ったら・・・・</span>
+                <button id="next" type="button" class="btn" onclick="next();">次の指令</button>
+            </td>
+
         </tr>
     </table>  
     <input type="hidden" id="uuid" name="uuid">

@@ -87,25 +87,35 @@ function onFail(message) {
 }
 
 function sendPhoto(){
-  var data = $("#image-data").val();
-  if (data){
-    $.ajax({
-      url: "https://park.mq-sol.jp/surveys/jsonp/hoge/fuga",
-       type: "POST",
-      crossDomain: true,          data: {pict: data},
-      dataType: "json",
-      success:function(result){
-        console.log("ok");
-        console.log(result);
-      },
-      error:function(xhr,status,error){
-        console.log("ng")
-        console.log(sutatus)
-        console.log(error);
-      }
-    });
-  }else{
-    alert("写真を撮影していません");
-  }
+    var data = $("#image-data").val();
+    var kind = $("#command").val();
+    var uuid = $("#uuid").val();
+    if (data){
+        $.ajax({
+            url: "https://park.mq-sol.jp/surveys/jsonp/",
+            type: "POST",
+            crossDomain: true,
+            data: {
+                pict: data,
+                kind: kind,
+                uuid: uuid
+            },
+            //dataType: "json",
+            dataType: "text",
+            success:function(result){
+                console.log("ok");
+                console.log(result);
+                $("#smallImage").attr("src","");
+                $("#image-data").val("");
+            },
+            error:function(xhr,status,error){
+                console.log("ng")
+                console.log(status)
+                console.log(error);
+            }
+        });
+    }else{
+        alert("写真を撮影していません");
+    }
 
 }
