@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <link rel="stylesheet" href="components/loader.css">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap-demo/main.js"></script>
+    <script>
+        // PhoneGap event handler
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log("PhoneGap is ready");
+            console.log(device.uuid);
+            $("#uuid").val(device.uuid);
+        }
+        
+        function login(){
+          var data = {
+            uuid: $("#uuid").val(),
+            user_id: $("#user_id").val()
+          };
+
+        var url = "https://park.mq-sol.jp/surveys/login";
+        console.log(url);
+        console.log(data.uuid + "," + data.user_id);
+       /*
+        $.ajax({
+          data: data,
+          type:"post",
+          url: url
+          ).done
+          success: function(data){
+            location.href="photo.html";
+          },
+          error: function(){
+            alert('error');
+            location.reload();
+          },
+          complete: function(){
+
+           }
+        }); 
+        */
+        $.ajax({
+          url: url,
+          data: data,
+          type:'POST',
+          dataType: 'json',
+        }).done(function(data) {
+          console.log("ajax ok");
+          location.href="photo.html";
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+          console.log("ajax ng");
+          console.log("XMLHttpRequest : " + jqXHR.status);
+          console.log("textStatus : " + textStatus);
+          console.log("errorThrown : " + errorThrown);
+          $("#user_id").val("");
+        }).always(function() {
+          console.log("finishi");
+      });
+    }
+
+
+
+    </script>
+</head>
+<body>
+  <h1>品川区公園調査</h1>
+    <div class="container">
+        <div class="login card card-container">
+            <form class="form-signin"onSubmit="login();return false;">
+              <span id="reauth-email" class="reauth-email"></span>
+              <p class="input_title">学籍番号</p>
+              <input type="text" value="181j00286" id="user_id" class="login_box" placeholder="学籍番号" required autofocus>
+              <input type="hidden" id="uuid" name="uuid">
+              <button class="btn btn-lg btn-primary" type="submit" >ログイン</button>
+            </form><!-- /form -->
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+</body>
+</html>

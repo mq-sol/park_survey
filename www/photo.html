@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html style="width:100%;height:100%">
+    <head>
+        <title>PhoneGap</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+        <script type="text/javascript" src="components/loader.js"></script>
+        <link rel="stylesheet" type="text/css" href="components/loader.css">
+        <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady(){
+            console.log("PhoneGap is ready.");
+            $("#uuid").val(device.uuid);
+            getLocation();
+        }
+        function getLocation() {
+            var suc = function(p) {
+                console.log(p.coords.latitude + " " + p.coords.longitude);
+            };
+            var locFail = function() {
+                console.log("location failed")
+            };
+            navigator.geolocation.getCurrentPosition(suc, locFail);
+        };
+        function next(){
+            //要素の数
+            var len = $("#command").children().length;
+            //現在の選択番目
+            var cur = $("#command").prop("selectedIndex");
+            //次の番目
+            var next = cur + 1;
+            console.log("next: " + next );
+            if (next == len - 1){
+                $('#next').html("指令完了");
+                $("#command").prop("selectedIndex", next);
+            }else if(next == len){
+                alert("次の公園に移動してください。終了時にはアプリをとじてください");
+            }else{    
+                $("#command").prop("selectedIndex", next);
+            }
+
+        }
+        </script>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/bootstrap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="phonegap-demo/p.js"></script>
+  </head>
+  <body style="width:100%;height:100%">
+    <table style="height:100%;width:100%">
+        <tr style="height: 30px">
+            <td style="pading: 3px">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label class="control-label">　指令　</label>
+                    </div>
+                    <div class="col-xs-5">
+                        <select class="form-control" style="width: 80%" id="command">
+                            <option value="1" selected>公園の入口を撮影</option>
+                            <option value="2">公園の風景を撮影</option> 
+                            <option value="3">公園の遊具・施設を撮影</option>
+                            <option value="4">全ての看板を撮影</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-3">
+                        <button id="next" type="button" class="btn" onclick="next();">次の指令</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr style="height: 30px">
+            <td>
+                <button type="button" class="btn btn-primary" onclick="capturePhoto();">写真を取る</button>
+            </td>
+        </tr>
+        <tr style="background-color:gray">
+            <td>
+                <img style="display:none;width:100%;" id="smallImage" src="" />
+            </td>
+        </tr>
+        <tr style="height:30px">
+            <td>
+                 <button type="button" class="btn btn-primary" onclick="sendPhoto()">写真を送信する</button>
+            </td>            
+        </tr>
+    </table>  
+    <input type="hidden" id="uuid" name="uuid">
+    <input type="hidden" id="image-data"  name="image-data" />
+   </body>
+</html>

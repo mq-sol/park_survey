@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <link rel="stylesheet" href="components/loader.css">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap-demo/main.js"></script>
+    <script>
+    
+    </script>
+</head>
+<body>
+    <!-- TODO: Please edit here -->
+    <div class="container">
+        <div class="login card card-container">
+        <h4>公園検索カメラアプリ</h4>
+        <hr>
+            <form class="form-signin" onsubmit="login()" action="photo.html">
+              <span id="reauth-email" class="reauth-email"></span>
+              <p class="input_title">学籍番号</p>
+              <input type="text" id="inputEmail" class="login_box" placeholder="学籍番号" required autofocus>
+              <input type="hidden" id="uuid" name="uuid">
+              <button class="btn btn-lg btn-primary" type="submit" >ログイン</button>
+            </form><!-- /form -->
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+  </body>
+</html>
